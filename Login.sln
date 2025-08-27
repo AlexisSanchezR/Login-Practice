@@ -12,12 +12,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8C4E1B9C-FB7B-478D-A954-B739A9E2D8B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login", "Presentation\Login\Login.csproj", "{30580F88-4997-F759-D04C-0A8E1489B4CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0A5DF591-5750-6026-BE82-A5F4B4B46437} = {0A5DF591-5750-6026-BE82-A5F4B4B46437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login.Bussines", "Bussines\Login.Bussines\Login.Bussines.csproj", "{0A5DF591-5750-6026-BE82-A5F4B4B46437}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E7C0FD4-DE6F-A129-E643-A8F9BC645399} = {4E7C0FD4-DE6F-A129-E643-A8F9BC645399}
+		{9BB2AAA8-F750-0902-925A-6599CFAF3001} = {9BB2AAA8-F750-0902-925A-6599CFAF3001}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login.Domain", "Domain\Login.Domain\Login.Domain.csproj", "{9BB2AAA8-F750-0902-925A-6599CFAF3001}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login.Infrastructure", "Infrastructure\Login.Infrastructure\Login.Infrastructure.csproj", "{4E7C0FD4-DE6F-A129-E643-A8F9BC645399}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9BB2AAA8-F750-0902-925A-6599CFAF3001} = {9BB2AAA8-F750-0902-925A-6599CFAF3001}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
