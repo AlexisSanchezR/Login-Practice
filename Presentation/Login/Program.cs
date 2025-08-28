@@ -1,25 +1,36 @@
-var builder = WebApplication.CreateBuilder(args);
+using Autofac.Extensions.DependencyInjection;
+using PensionFund;
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    private static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        var pathToContentRoot = AppDomain.CurrentDomain.BaseDirectory;
+        var configurationRoot = new ConfigurationBuilder()
+            .SetBasePath(pathToContentRoot)
+            .AddJsonFile("appsettings.json", true)
+            .Build();
+
+        return Host.CreateDefaultBuilder(args)
+            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureServices(services => { services.AddAutofac(); })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.SetBasePath(pathToContentRoot);
+                config.AddJsonFile("appsettings.json", true);
+                config.AddConfiguration(configurationRoot);
+            })
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder
+                    .UseKestrel()
+                .UseIISIntegration()
+                    .UseStartup<StartUp>();
+            });
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
-
-app.Run();

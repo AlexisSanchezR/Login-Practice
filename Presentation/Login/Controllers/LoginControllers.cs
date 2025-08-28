@@ -16,7 +16,6 @@ namespace Login.Controllers
         }
 
         [HttpPost("create-user")]
-        [Route("create-user")]
         public async Task<IActionResult> CreateUser([FromBody] LoginRequest loginRequest)
         {
             var model = new UserModel();

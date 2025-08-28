@@ -16,7 +16,7 @@ namespace Login.Infrastructure.Repositories
 
             var conn = await _client.GetConnection();
 
-            var sql = $"INSERT INTO Login (Id,Email,Password,Username,UserLastName,Phone) VALUES (@Id,@Email,@Password,@Username,@UserLastName,@Phone)";
+            var sql = $"INSERT INTO Login (Id,Username,UserLastName,Email,Password,Phone) VALUES (@Id,@Username,@UserLastName,@Email,@Password,@Phone)";
 
             using (var cmd = new NpgsqlCommand(sql, conn))
             {
