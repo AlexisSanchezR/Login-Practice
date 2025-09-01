@@ -32,9 +32,9 @@ namespace Login.Bussines.services
             return user;
         }
 
-        public async Task<IEnumerable<UserModel>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
-            return await _dataBaseRepositorie.getAll();
+            return await _dataBaseRepositorie.GetAllUsers();
         }
     }
 }

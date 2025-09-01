@@ -70,7 +70,7 @@ namespace Login.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<UserModel>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
             var usuarios = new List<UserModel>();
             var conn = await _client.GetConnection();

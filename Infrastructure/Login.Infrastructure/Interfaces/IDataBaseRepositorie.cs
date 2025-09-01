@@ -13,7 +13,7 @@ namespace Login.Infrastructure.Interfaces
         public Task deleteUser(string id);
         public Task updateUser(UserModel updateUserModel);
         public Task<UserModel> getById(string getById);
-        public Task<IEnumerable<UserModel>> getAll();
+        public Task<List<UserModel>> GetAllUsers();
 
 
     }

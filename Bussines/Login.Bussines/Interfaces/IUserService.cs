@@ -11,6 +11,6 @@ namespace Login.Bussines.Interfaces
     {
         public Task CreateUser(UserModel createUserModel);
         public Task<UserModel> GetUserById(string getById);
-        public Task<IEnumerable<UserModel>> GetAllUsers();
+        public Task<List<UserModel>> GetAllUsers();
     }
 }
