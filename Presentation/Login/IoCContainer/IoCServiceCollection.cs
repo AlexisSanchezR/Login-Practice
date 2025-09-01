@@ -57,10 +57,10 @@ namespace Login.IoCContainer
         private static void RegisterServices(ContainerBuilder builder, IConfiguration configuration)
         {
             builder
-                .Register((context, parameters) => new CreateUserService(
+                .Register((context, parameters) => new UserService(
                     context.Resolve<IDataBaseRepositorie>()
                     ))
-                .As<ICreateUserService>()
+                .As<IUserService>()
                 .SingleInstance();
         }
 

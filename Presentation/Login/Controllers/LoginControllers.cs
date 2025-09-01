@@ -9,9 +9,9 @@ namespace Login.Controllers
     [ApiController]
     public class LoginControllers : ControllerBase
     {
-        private readonly ICreateUserService _createUserService;
-        public LoginControllers (ICreateUserService createUserService) { 
-            _createUserService = createUserService; 
+        private readonly IUserService _userService;
+        public LoginControllers (IUserService createUserService) { 
+            _userService = createUserService; 
 
         }
 
@@ -25,8 +25,24 @@ namespace Login.Controllers
             model.UserLastName = loginRequest.UserLastName;
             model.Password = loginRequest.Password;
             model.Phone = loginRequest.Phone;
-            await _createUserService.CreateUser(model);
+            await _userService.CreateUser(model);
             return Created("respuesta", loginRequest);
+        }
+
+        [HttpGet]
+        [Route("get-user")] 
+        public async Task<IActionResult> GetUser(string userId)
+        {
+            var user = await _userService.GetUserById(userId);
+            return StatusCode(StatusCodes.Status200OK, user);
+        }
+        
+        [HttpGet]
+        [Route("getAll-user")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var user = await _userService.GetAllUsers();
+            return StatusCode(StatusCodes.Status200OK, user);
         }
 
         [HttpDelete]
@@ -43,11 +59,6 @@ namespace Login.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("get-user")]
-        public async Task<IActionResult> GetUser()
-        {
-            return StatusCode(StatusCodes.Status200OK, new List<int> () );
-        }
+        
     }
 }

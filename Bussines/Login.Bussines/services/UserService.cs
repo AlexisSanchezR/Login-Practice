@@ -10,15 +10,31 @@ using System.Threading.Tasks;
 
 namespace Login.Bussines.services
 {
-    public class CreateUserService : ICreateUserService
+    public class UserService : IUserService
     {
         private readonly IDataBaseRepositorie _dataBaseRepositorie;
-        public CreateUserService(IDataBaseRepositorie dataBaseRepositorie) {
+        public UserService(IDataBaseRepositorie dataBaseRepositorie) {
             _dataBaseRepositorie = dataBaseRepositorie;
         }
+
         public async Task CreateUser(UserModel createUserModel)
         {
             await _dataBaseRepositorie.CreateUser(createUserModel);
+        }
+
+        public async Task<UserModel> GetUserById(string userId)
+        {
+            var user = await _dataBaseRepositorie.getById(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("Usuario no encontrado.");
+            }
+            return user;
+        }
+
+        public async Task<IEnumerable<UserModel>> GetAllUsers()
+        {
+            return await _dataBaseRepositorie.getAll();
         }
     }
 }

@@ -11,9 +11,9 @@ namespace Login.Infrastructure.Interfaces
     {
         public Task CreateUser(UserModel createUserModel);
         public Task deleteUser(string id);
-        public Task updateUser(UserModel upteUserModel);
-        public Task getById(string getById);
-        public Task getAll();
+        public Task updateUser(UserModel updateUserModel);
+        public Task<UserModel> getById(string getById);
+        public Task<IEnumerable<UserModel>> getAll();
 
 
     }
