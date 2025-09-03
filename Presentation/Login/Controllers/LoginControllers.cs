@@ -45,6 +45,21 @@ namespace Login.Controllers
             return StatusCode(StatusCodes.Status200OK, user);
         }
 
+        [HttpPut]
+        [Route("update-user")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] UserModel updateUser)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updated = await _userService.UpdateUser(id, updateUser);
+
+            if (!updated)
+                return NotFound(new { Message = "Usuario no encontrado" });
+
+            return NoContent(); // Convención REST para Update
+        }
+
         [HttpDelete]
         [Route("delete-user")]
         public async Task<IActionResult> DeleteUser()
@@ -52,12 +67,7 @@ namespace Login.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Route("update-user")]
-        public async Task<IActionResult> UpdateUser()
-        {
-            return Ok();
-        }
+        
 
         
     }

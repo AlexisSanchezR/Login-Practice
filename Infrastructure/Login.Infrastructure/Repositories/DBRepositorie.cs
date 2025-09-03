@@ -96,16 +96,38 @@ namespace Login.Infrastructure.Repositories
             return usuarios;
         }
 
+        public async Task<bool> UpdateUser(UserModel updateUserModel)
+        {
+
+            var conn = await _client.GetConnection();
+
+
+            var sql = @"UPDATE ""Login"" 
+                SET ""Username"" = @Username, 
+                    ""UserLastName"" = @UserLastName, 
+                    ""Email"" = @Email, 
+                    ""Password"" = @Password, 
+                    ""Phone"" = @Phone
+                WHERE ""Id"" = @Id";
+            using (var cmd = new NpgsqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", updateUserModel.Id);
+                cmd.Parameters.AddWithValue("@Username", updateUserModel.Username);
+                cmd.Parameters.AddWithValue("@UserLastName", updateUserModel.UserLastName);
+                cmd.Parameters.AddWithValue("@Password", updateUserModel.Password);
+                cmd.Parameters.AddWithValue("@Email", updateUserModel.Email);
+                cmd.Parameters.AddWithValue("@Phone", updateUserModel.Phone);
+                
+                var rowsAffected = await cmd.ExecuteNonQueryAsync();
+                return rowsAffected > 0;
+            }
+        }
+
+
         public async Task deleteUser(string id)
         {
             throw new NotImplementedException();
         }
 
-
-
-        public async Task updateUser(UserModel upteUserModel)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

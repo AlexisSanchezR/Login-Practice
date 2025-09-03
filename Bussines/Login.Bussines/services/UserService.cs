@@ -36,5 +36,23 @@ namespace Login.Bussines.services
         {
             return await _dataBaseRepositorie.GetAllUsers();
         }
+
+        public async Task<bool> UpdateUser(string userId, UserModel updateUserModel)
+        {
+            var user = await _dataBaseRepositorie.getById(userId);
+            if (user == null) return false; // No existe
+
+
+            // Mapeo los cambios
+            user.Username = updateUserModel.Username;
+            user.UserLastName = updateUserModel.UserLastName;
+            user.Email = updateUserModel.Email;
+            user.Password = updateUserModel.Password;
+            
+
+            await _dataBaseRepositorie.UpdateUser(user);
+            return true;
+
+        }
     }
 }

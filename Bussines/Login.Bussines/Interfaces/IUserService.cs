@@ -12,5 +12,6 @@ namespace Login.Bussines.Interfaces
         public Task CreateUser(UserModel createUserModel);
         public Task<UserModel> GetUserById(string getById);
         public Task<List<UserModel>> GetAllUsers();
+        public Task<bool> UpdateUser(string userId, UserModel updateUserModel);
     }
 }
