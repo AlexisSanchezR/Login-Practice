@@ -17,14 +17,20 @@ public class Program
             .Build();
 
         return Host.CreateDefaultBuilder(args)
+
+            //inyeccion de dependencias con Autofac
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureServices(services => { services.AddAutofac(); })
+
+            //Configuracion de la aplicacion
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(pathToContentRoot);
                 config.AddJsonFile("appsettings.json", true);
                 config.AddConfiguration(configurationRoot);
             })
+
+            //configuracion del servidor web
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder

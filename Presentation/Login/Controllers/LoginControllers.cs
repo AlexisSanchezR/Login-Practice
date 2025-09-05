@@ -62,13 +62,25 @@ namespace Login.Controllers
 
         [HttpDelete]
         [Route("delete-user")]
-        public async Task<IActionResult> DeleteUser()
+        public async Task<IActionResult> DeleteUser(string userId)
         {
-            return Ok();
+            try
+            {
+                var deleted = await _userService.DeleteUser(userId);
+
+                if (!deleted)
+                {
+                    return NotFound(new { message = "Usuario no encontrado" });
+                }
+
+                return Ok(new { message = "Usuario eliminado exitosamente" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error en el servidor", detail = ex.Message });
+            }
         }
 
-        
 
-        
     }
 }

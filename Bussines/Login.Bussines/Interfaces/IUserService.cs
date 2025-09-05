@@ -13,5 +13,6 @@ namespace Login.Bussines.Interfaces
         public Task<UserModel> GetUserById(string getById);
         public Task<List<UserModel>> GetAllUsers();
         public Task<bool> UpdateUser(string userId, UserModel updateUserModel);
+        public Task<bool> DeleteUser(string userId);
     }
 }

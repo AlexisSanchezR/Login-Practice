@@ -63,7 +63,7 @@ namespace Login.Infrastructure.Repositories
                     }
                     else
                     {
-                        Log.Error("Usuario no encontrado.");
+                        Log.Error("There was an error finding the user by id");
                         return null; // Retorna null si no hay usuario
                     }
                 }
@@ -124,9 +124,18 @@ namespace Login.Infrastructure.Repositories
         }
 
 
-        public async Task deleteUser(string id)
+        public async Task<bool> DeleteUser(string userId)
         {
-            throw new NotImplementedException();
+            var conn = await _client.GetConnection();
+            string sql = @"DELETE FROM ""Login"" WHERE ""Id"" = @Id";
+
+            using (var cmd = new NpgsqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@id", userId);
+                var rowsAffected = await cmd.ExecuteNonQueryAsync();
+                return rowsAffected > 0;
+
+            }
         }
 
     }
